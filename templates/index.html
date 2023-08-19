@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hello swWorld API</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            margin-top: 20px;
+            width: 60%;
+            max-width: 600px;
+            height: 150%;
+            max-height: 600px;
+            margin: 0 auto;
+        }
+
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        #language-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 26px;
+        }
+
+        select {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        #submit-button {
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #submit-button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        #flag {
+            margin-right: 5px;
+            font-size: 24px;
+        }
+
+        #logo {
+            max-width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img src="/static/ignite_logo.jpg" alt="Ignite Logo" id="logo">
+        <h1>Hello World API</h1>
+        <form id="language-form">
+            <label for="language">Choose a language:</label>
+            <select id="language" name="language">
+                <option value="English">&#x1F1FA;&#x1F1F8; English</option>
+                <option value="French">&#x1F1EB;&#x1F1F7; French</option>
+                <option value="Hindi">&#x1F1EE;&#x1F1F3; Hindi</option>
+                <option value="Error">Error</option>
+            </select>
+            <button type="button" id="submit-button">Get Hello Message</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <footer style="margin-top: 20px; text-align: center;">
+
+        <p>
+            <span style="font-size: 24px;">&#9742;</span> Phone: 9518593455<br>
+            <span style="font-size: 24px;">&#9993;</span> Email: <a
+                href="mailto:pratham.patil@mitaoe.ac.in">pratham.patil@mitaoe.ac.in</a>
+        </p>
+        <p>
+            <a href="https://www.instagram.com/_PP_933/"> Instagram </a>
+            <span>&nbsp;</span>
+            <span>&nbsp;</span>
+            <a href="https://www.linkedin.com/in/pratham-patil-b37663209/"> LinkedIn </a>
+        </p>
+        <p>&copy; 2023 Pratham Patil</p>
+    </footer>
+
+    <script>
+        document.getElementById('submit-button').addEventListener('click', async () => {
+            const selectedLanguage = document.getElementById('language').value;
+            const response = await fetch(`/hello?language=${selectedLanguage}`);
+            const data = await response.json();
+            //const flag = selectedLanguage.substring(0, 2); // Extracting country code from the value
+            if (selectedLanguage === "Error") {
+                document.getElementById('result').innerHTML = data.error_message;
+            } else {
+                document.getElementById('result').innerHTML = data.msgText;
+            }
+        });
+    </script>
+</body>
+
+</html>
